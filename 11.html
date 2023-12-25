@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Code Quiz</title>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h2>ASCII Code Quiz</h2>
+    <p>What is the ASCII code for the letter 'A'?</p>
+    <form id="quiz-form">
+        <input type="radio" name="answer" value="65"> 65<br>
+        <input type="radio" name="answer" value="66"> 66<br>
+        <input type="radio" name="answer" value="67"> 67<br>
+        <input type="radio" name="answer" value="68"> 68<br><br>
+        <button type="button" onclick="submitQuiz()">Submit</button>
+    </form>
+</div>
+
+<script>
+function submitQuiz() {
+    // Get selected answer
+    var selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+    if (selectedAnswer) {
+        // Create FHIR QuestionnaireResponse JSON
+        var questionnaireResponse = {
+            resourceType: "QuestionnaireResponse",
+            item: [
+                {
+                    linkId: "1",
+                    answer: [
+                        {
+                            valueInteger: parseInt(selectedAnswer.value)
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Display JSON data (for testing purposes)
+        console.log(JSON.stringify(questionnaireResponse, null, 2));
+    } else {
+        alert("Please select an answer before submitting.");
+    }
+}
+</script>
+
+</body>
+</html>
